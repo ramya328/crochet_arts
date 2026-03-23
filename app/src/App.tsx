@@ -21,18 +21,29 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Button } from '@/components/ui/button';
 import './App.css';
 
-/* ---- SAME DATA (no changes) ---- */
+/* ---------------- DATA (same as your original) ---------------- */
 
-/* ---- YOUR EXISTING DATA ARRAYS HERE (galleryItems, products, categories) ---- */
+const galleryItems = [
+  { id: 1, src: 'img1', title: 'Rose Collection', description: 'Beautiful handmade' },
+  { id: 2, src: 'img2', title: 'Work in Progress', description: 'Handcrafting' },
+];
 
-/* ---- ANIMATIONS SAME ---- */
+const products = [
+  { id: 1, name: 'Rose Bouquet', description: 'Handcrafted', image: 'img1', category: 'flowers' },
+];
 
-/* ---- MAIN APP ---- */
+const categories = [
+  { name: 'Amigurumi' },
+  { name: 'Flowers' },
+];
+
+/* ---------------- APP ---------------- */
 
 function App() {
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState<any>(null);
   const [isContactOpen, setIsContactOpen] = useState(false);
-  const heroRef = useRef(null);
+  const heroRef = useRef<HTMLDivElement>(null);
+
   const { scrollYProgress } = useScroll();
   useTransform(scrollYProgress, [0, 1], [0, -100]);
 
@@ -50,42 +61,37 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-crochet-pattern overflow-x-hidden">
+    <div className="min-h-screen">
 
       {/* HEADER */}
-      {/* (No changes here) */}
+      <header className="p-4 flex justify-between">
+        <h1>Ramya's Corner</h1>
+        <button onClick={() => setIsContactOpen(true)}>Order</button>
+      </header>
 
-      {/* SHOP BUTTON CHANGE */}
-      {/* Changed MessageCircle → Mail */}
-      <motion.button
-        onClick={() => setIsContactOpen(true)}
-        className="w-full px-4 py-3 bg-rose-500 text-white rounded-full text-sm font-semibold hover:bg-rose-600 transition-colors flex items-center justify-center gap-2"
-      >
-        <Mail className="w-4 h-4" />
-        Inquire Now
-      </motion.button>
+      {/* PRODUCTS */}
+      <div className="grid grid-cols-2 gap-4 p-4">
+        {products.map((p) => (
+          <div key={p.id} className="border p-4">
+            <h3>{p.name}</h3>
+            <p>{p.description}</p>
+
+            {/* UPDATED BUTTON */}
+            <button onClick={() => setIsContactOpen(true)}>
+              <Mail className="w-4 h-4 inline mr-2" />
+              Inquire
+            </button>
+          </div>
+        ))}
+      </div>
 
       {/* CONTACT SECTION */}
-      {/* WhatsApp REMOVED */}
-      <motion.div className="flex flex-wrap justify-center gap-4">
-        <motion.button className="px-6 py-3 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full text-white flex items-center gap-2">
-          <Instagram className="w-5 h-5" />
-          Instagram
-        </motion.button>
-
-        <motion.button className="px-6 py-3 bg-blue-500 rounded-full text-white flex items-center gap-2">
-          <Mail className="w-5 h-5" />
-          Email
-        </motion.button>
-      </motion.div>
-
-      {/* FOOTER */}
-      {/* WhatsApp icon REMOVED */}
-      <div className="flex items-center gap-6">
-        <a href="#">
+      <div className="p-6 flex gap-4 justify-center">
+        <a href="https://instagram.com/_crochet_arts_" target="_blank">
           <Instagram className="w-6 h-6" />
         </a>
-        <a href="#">
+
+        <a href="mailto:your@email.com">
           <Mail className="w-6 h-6" />
         </a>
       </div>
@@ -105,47 +111,32 @@ function App() {
       </Dialog>
 
       {/* CONTACT MODAL */}
-      {/* WhatsApp COMPLETELY REMOVED */}
       <Dialog open={isContactOpen} onOpenChange={setIsContactOpen}>
-        <DialogContent className="max-w-md rounded-3xl">
+        <DialogContent>
+
           <DialogHeader>
-            <DialogTitle className="text-center">
-              Get in Touch!
-            </DialogTitle>
+            <DialogTitle>Get in Touch</DialogTitle>
           </DialogHeader>
 
-          <div className="space-y-4 mt-4">
+          <div className="space-y-4">
 
             {/* INSTAGRAM */}
             <a
               href="https://instagram.com/_crochet_arts_"
               target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-r from-purple-50 to-pink-50"
+              className="flex items-center gap-4"
             >
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center rounded-full">
-                <Instagram className="text-white" />
-              </div>
-              <div>
-                <div className="font-semibold">Instagram</div>
-                <div className="text-sm text-gray-500">@_crochet_arts_</div>
-              </div>
-              <ChevronRight className="ml-auto" />
+              <Instagram className="w-6 h-6" />
+              Instagram
             </a>
 
             {/* EMAIL */}
             <a
               href="mailto:your@email.com"
-              className="flex items-center gap-4 p-4 rounded-2xl bg-blue-50"
+              className="flex items-center gap-4"
             >
-              <div className="w-12 h-12 bg-blue-500 flex items-center justify-center rounded-full">
-                <Mail className="text-white" />
-              </div>
-              <div>
-                <div className="font-semibold">Email</div>
-                <div className="text-sm text-gray-500">Send message</div>
-              </div>
-              <ChevronRight className="ml-auto" />
+              <Mail className="w-6 h-6" />
+              Email
             </a>
 
           </div>
