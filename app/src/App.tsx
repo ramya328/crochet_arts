@@ -766,23 +766,7 @@ function App() {
             <p className="text-center text-gray-600">
               Choose your preferred way to connect with me
             </p>
-            <motion.a
-              href="https://wa.me/9515793340"
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="flex items-center gap-4 p-4 rounded-2xl bg-green-50 hover:bg-green-100 transition-colors"
-            >
-              <div className="w-12 h-12 rounded-full bg-green-500 flex items-center justify-center">
-                <MessageCircle className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <div className="font-semibold text-gray-800">WhatsApp</div>
-                <div className="text-sm text-gray-500">Quick response</div>
-              </div>
-              <ChevronRight className="w-5 h-5 text-gray-400 ml-auto" />
-            </motion.a>
+           
             <motion.a
               href="https://instagram.com/_crochet_arts_"
               target="_blank"
