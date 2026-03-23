@@ -55,41 +55,13 @@ const products: Product[] = [
   { id: 6, name: 'Custom Order', description: 'Request your own custom design', image: '/images/work1.jpg', category: 'custom', icon: <Palette className="w-5 h-5" /> },
 ];
 
-const categories = [
-  { name: 'Amigurumi', icon: <Heart className="w-6 h-6" />, count: 'Cute characters' },
-  { name: 'Flowers', icon: <Flower2 className="w-6 h-6" />, count: 'Roses & more' },
-  { name: 'Keychains', icon: <Key className="w-6 h-6" />, count: 'Bows & charms' },
-  { name: 'Accessories', icon: <Sparkles className="w-6 h-6" />, count: 'Scrunchies' },
-];
-
 // Animations
 const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 40 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
 };
 
-const fadeInLeft: Variants = {
-  hidden: { opacity: 0, x: -40 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.6 } }
-};
-
-const fadeInRight: Variants = {
-  hidden: { opacity: 0, x: 40 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.6 } }
-};
-
-const scaleIn: Variants = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } }
-};
-
-const staggerContainer: Variants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } }
-};
-
 function App() {
-  const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
   const [isContactOpen, setIsContactOpen] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll();
@@ -110,33 +82,37 @@ function App() {
   return (
     <div className="min-h-screen bg-crochet-pattern overflow-x-hidden">
 
-      {/* Shop Section Button FIX */}
-      {/* Replace MessageCircle with Mail everywhere */}
-
-      {/* SHOP BUTTON */}
-      {/* Already handled below */}
-
       {/* CONTACT SECTION */}
       <section id="contact" className="section-padding relative">
         <div className="container-custom">
           <motion.div className="max-w-4xl mx-auto">
             <div className="bg-gradient-to-br from-rose-500 to-pink-600 rounded-[3rem] p-8 md:p-16 text-center text-white">
 
-              <h2 className="text-4xl font-bold mb-4">Let&apos;s Create Something Beautiful!</h2>
+              <h2 className="text-4xl font-bold mb-4">
+                Let&apos;s Create Something Beautiful!
+              </h2>
+
+              <p className="text-white/80 mb-6">
+                Reach out through Instagram or Email
+              </p>
 
               <motion.div className="flex flex-wrap justify-center gap-4">
-                {[
-                  { icon: <Instagram className="w-5 h-5" />, label: 'Instagram', color: 'bg-gradient-to-br from-purple-500 to-pink-500' },
-                  { icon: <Mail className="w-5 h-5" />, label: 'Email', color: 'bg-blue-500' },
-                ].map((item, index) => (
-                  <motion.button
-                    key={index}
-                    className={`px-6 py-3 ${item.color} rounded-full text-white flex items-center gap-2`}
-                  >
-                    {item.icon}
-                    {item.label}
-                  </motion.button>
-                ))}
+                <motion.a
+                  href="https://instagram.com/_crochet_arts_"
+                  target="_blank"
+                  className="px-6 py-3 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full text-white flex items-center gap-2"
+                >
+                  <Instagram className="w-5 h-5" />
+                  Instagram
+                </motion.a>
+
+                <motion.a
+                  href="mailto:"
+                  className="px-6 py-3 bg-blue-500 rounded-full text-white flex items-center gap-2"
+                >
+                  <Mail className="w-5 h-5" />
+                  Email
+                </motion.a>
               </motion.div>
 
             </div>
@@ -146,19 +122,43 @@ function App() {
 
       {/* FOOTER */}
       <footer className="bg-white border-t border-rose-100">
-        <div className="container-custom py-12">
-          <div className="flex justify-center gap-6">
-            <Instagram className="w-6 h-6" />
-            <Mail className="w-6 h-6" />
+        <div className="container-custom py-12 text-center">
+          <div className="flex justify-center gap-6 mb-4">
+            <Instagram className="w-6 h-6 text-gray-500 hover:text-rose-500" />
+            <Mail className="w-6 h-6 text-gray-500 hover:text-rose-500" />
           </div>
+          <p className="text-gray-500 text-sm">
+            Made with ❤️ by Ramya
+          </p>
         </div>
       </footer>
 
-      {/* MODAL BUTTON FIX */}
-      <Button>
-        <Mail className="w-5 h-5 mr-2" />
-        Inquire
-      </Button>
+      {/* BUTTON */}
+      <div className="fixed bottom-6 right-6">
+        <Button onClick={() => setIsContactOpen(true)}>
+          <Mail className="w-5 h-5 mr-2" />
+          Inquire
+        </Button>
+      </div>
+
+      {/* CONTACT MODAL */}
+      <Dialog open={isContactOpen} onOpenChange={setIsContactOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Contact</DialogTitle>
+          </DialogHeader>
+
+          <div className="space-y-4">
+            <a href="https://instagram.com/_crochet_arts_" target="_blank" className="flex gap-2">
+              <Instagram /> Instagram
+            </a>
+
+            <a href="mailto:" className="flex gap-2">
+              <Mail /> Email
+            </a>
+          </div>
+        </DialogContent>
+      </Dialog>
 
     </div>
   );
